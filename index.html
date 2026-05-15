@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>颜色匹配移动求解器</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="ink-wash" aria-hidden="true"></div>
+    <main class="shell">
+      <section class="solver-panel" aria-labelledby="app-title">
+        <div class="panel-mark" aria-hidden="true">绣衣密档</div>
+        <div class="title-row">
+          <div>
+            <p class="eyebrow">绣衣楼 · 颜色机关推演</p>
+            <h1 id="app-title"><span class="seal">鸢</span>颜色匹配移动求解器</h1>
+            <div class="meta-row" aria-label="规则摘要">
+              <span>循环五位</span>
+              <span>左换颜料</span>
+              <span>右二换木槌</span>
+            </div>
+          </div>
+          <button id="exampleButton" class="ghost-button" type="button">填入示例</button>
+        </div>
+
+        <form id="solverForm" class="inputs">
+          <div class="input-group">
+            <label for="hammerInput">木槌颜色</label>
+            <input
+              id="hammerInput"
+              name="hammers"
+              autocomplete="off"
+              value="pgryb"
+              aria-describedby="inputHelp"
+            />
+          </div>
+          <div class="input-group">
+            <label for="paintInput">颜料颜色</label>
+            <input id="paintInput" name="paints" autocomplete="off" value="pbgyr" />
+          </div>
+          <p id="inputHelp" class="help">
+            可输入 `pgryb`，也可输入 `红 绿 黄 蓝 紫`。常用代号：r=红、g=绿、b=蓝、y=黄、p=紫。
+          </p>
+          <div class="color-key" aria-label="颜色代号">
+            <span><i style="background:#dc2626"></i>r 红</span>
+            <span><i style="background:#16a34a"></i>g 绿</span>
+            <span><i style="background:#2563eb"></i>b 蓝</span>
+            <span><i style="background:#ca8a04"></i>y 黄</span>
+            <span><i style="background:#9333ea"></i>p 紫</span>
+          </div>
+          <button class="primary-button" type="submit">求怎么动</button>
+        </form>
+
+        <div id="message" class="message" role="alert"></div>
+
+        <section class="result-area" aria-live="polite">
+          <div class="score-card">
+            <span>最多匹配</span>
+            <strong id="maxMatch">-</strong>
+          </div>
+          <div class="move-card">
+            <span>移动顺序</span>
+            <strong id="moveList">-</strong>
+          </div>
+        </section>
+
+        <section class="board-section" aria-label="最终状态">
+          <div class="section-heading">
+            <h2>最终状态</h2>
+            <span>五位机关盘</span>
+          </div>
+          <div id="finalBoard" class="board"></div>
+        </section>
+      </section>
+
+      <aside class="lesson-panel" aria-labelledby="lesson-title">
+        <div class="scroll-pin" aria-hidden="true"></div>
+        <p class="aside-kicker">密令说明</p>
+        <h2 id="lesson-title">教学</h2>
+        <div class="rule-list">
+          <div class="rule-item">
+            <span class="rule-index">1</span>
+            <p>五个 object 固定叫做 a、b、c、d、e，排成一个循环。</p>
+          </div>
+          <div class="rule-item">
+            <span class="rule-index">2</span>
+            <p>动某个 object 时，它的颜料会和左边第一个 object 交换。</p>
+          </div>
+          <div class="rule-item">
+            <span class="rule-index">3</span>
+            <p>同一次移动里，它的木槌会和右边第二个 object 交换。</p>
+          </div>
+          <div class="rule-item">
+            <span class="rule-index">4</span>
+            <p>程序会搜索所有可能状态，找出能让颜料和木槌颜色相同最多的最短移动法。</p>
+          </div>
+        </div>
+
+        <h2>每一步</h2>
+        <div id="steps" class="steps"></div>
+      </aside>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
